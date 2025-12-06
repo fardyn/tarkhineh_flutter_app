@@ -36,8 +36,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeInOut,
       );
     } else {
-      // Navigate to home on last step
-      Navigator.pushReplacementNamed(context, '/home');
+      // Navigate to login on last step
+      Navigator.pushReplacementNamed(context, '/login');
     }
   }
 

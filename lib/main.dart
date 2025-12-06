@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'splash_screen.dart';
 import 'onboarding_screen.dart';
+import 'login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
       routes: {
         '/onboarding': (_) => const OnboardingScreen(),
+        '/login': (_) => const LoginScreen(),
         '/home': (_) => const HomePage(),
       },
     );
