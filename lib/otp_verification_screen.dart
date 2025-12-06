@@ -55,7 +55,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   void _verifyCode() {
     // TODO: Implement OTP verification logic
-    // For now, just navigate to home
+    // Navigate to home
     Navigator.pushReplacementNamed(context, '/home');
   }
 

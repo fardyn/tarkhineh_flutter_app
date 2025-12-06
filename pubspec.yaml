@@ -62,6 +62,30 @@ flutter:
     - assets/images/Character-2.png
     - assets/images/Character.png
     - assets/images/Next.png
+    - assets/images/Next-1.png
+    - assets/images/Next-2.png
+    - assets/images/location.png
+    - assets/images/arrow-down.png
+    - assets/images/gps.png
+    - assets/images/app-slider-1.png
+    - assets/images/app-slider-2.png
+    - assets/images/ghaza-asli.png
+    - assets/images/bish-ghaza.png
+    - assets/images/Special-offer-pic-1.png
+    - assets/images/special-offer-pic-2.png
+    - assets/images/popular-foods-1.png
+    - assets/images/Popular-foods-2.png
+    - assets/images/sushi.png
+    - assets/images/ratatouii.png
+    - assets/images/ekbatan.png
+    - assets/images/chaloos.png
+    - assets/images/aghdasyeh.png
+    - assets/images/vanak.png
+    - assets/images/home.png
+    - assets/images/search-normal.png
+    - assets/images/shopping-cart.png
+    - assets/images/receipt-2.png
+    - assets/images/user.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

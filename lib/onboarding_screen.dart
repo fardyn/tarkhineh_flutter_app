@@ -75,7 +75,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: GestureDetector(
                   onTap: _nextPage,
                   child: Image.asset(
-                    'assets/images/Next.png',
+                    _currentPage == 0
+                        ? 'assets/images/Next-1.png'
+                        : _currentPage == 1
+                            ? 'assets/images/Next-2.png'
+                            : 'assets/images/Next.png',
                     width: 120,
                     height: 50,
                     fit: BoxFit.contain,
