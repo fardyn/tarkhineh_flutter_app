@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'widgets/food_card.dart';
 import 'models/product.dart';
 import 'product_detail_screen.dart';
+import 'services/cart_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -574,7 +575,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   onAddToCart: () {
-                    // TODO: Add to cart
+                    final cartService = CartService();
+                    cartService.addToCart(_createProduct(
+                      title: 'دلمه برگ کلم',
+                      imagePath: 'assets/images/Special-offer-pic-1.png',
+                      originalPrice: 220000,
+                      discountPercent: 8,
+                      finalPrice: 209000,
+                      stars: 5,
+                      ingredients: 'کلم، برنج، لپه، سبزی معطر، پیاز، رب گوجه فرنگی، روغن زیتون',
+                    ));
+                    setState(() {});
                   },
                   onTap: () {
                     Navigator.push(
@@ -613,7 +624,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   onAddToCart: () {
-                    // TODO: Add to cart
+                    final cartService = CartService();
+                    cartService.addToCart(_createProduct(
+                      title: 'بادمجان شکم‌پر',
+                      imagePath: 'assets/images/special-offer-pic-2.png',
+                      originalPrice: 150000,
+                      discountPercent: 18,
+                      finalPrice: 136000,
+                      stars: 4,
+                      ingredients: 'بادمجان، گوجه فرنگی، کدو سبز، پیاز، رب گوجه فرنگی، روغن زیتون، پنیر پارمزان',
+                    ));
+                    setState(() {});
                   },
                   onTap: () {
                     Navigator.push(
@@ -687,7 +708,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   onAddToCart: () {
-                    // TODO: Add to cart
+                    final cartService = CartService();
+                    cartService.addToCart(_createProduct(
+                      title: 'پنینی اسفناج',
+                      imagePath: 'assets/images/popular-foods-1.png',
+                      originalPrice: 150000,
+                      finalPrice: 150000,
+                      stars: 3,
+                      ingredients: 'نان پنینی، اسفناج، پنیر موتزارلا، سیر، روغن زیتون',
+                    ));
+                    setState(() {});
                   },
                   onTap: () {
                     Navigator.push(
@@ -725,7 +755,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   onAddToCart: () {
-                    // TODO: Add to cart
+                    final cartService = CartService();
+                    cartService.addToCart(_createProduct(
+                      title: 'پیتزا پپرونی',
+                      imagePath: 'assets/images/Popular-foods-2.png',
+                      originalPrice: 175000,
+                      discountPercent: 20,
+                      finalPrice: 150000,
+                      stars: 4,
+                      ingredients: 'خمیر پیتزا، پپرونی، پنیر موتزارلا، سس گوجه فرنگی',
+                    ));
+                    setState(() {});
                   },
                   onTap: () {
                     Navigator.push(
@@ -800,7 +840,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   onAddToCart: () {
-                    // TODO: Add to cart
+                    final cartService = CartService();
+                    cartService.addToCart(_createProduct(
+                      title: 'سوشی',
+                      imagePath: 'assets/images/sushi.png',
+                      originalPrice: 175000,
+                      discountPercent: 20,
+                      finalPrice: 150000,
+                      stars: 4,
+                      ingredients: 'ماهی سالمون، برنج سوشی، جلبک دریایی، خیار، آووکادو',
+                    ));
+                    setState(() {});
                   },
                   onTap: () {
                     Navigator.push(
@@ -839,7 +889,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     });
                   },
                   onAddToCart: () {
-                    // TODO: Add to cart
+                    final cartService = CartService();
+                    cartService.addToCart(_createProduct(
+                      title: 'راتاتویی',
+                      imagePath: 'assets/images/ratatouii.png',
+                      originalPrice: 175000,
+                      discountPercent: 20,
+                      finalPrice: 150000,
+                      stars: 4,
+                      ingredients: 'بادمجان، گوجه فرنگی، کدو سبز، پیاز، رب گوجه فرنگی، روغن زیتون، پنیر پارمزان',
+                    ));
+                    setState(() {});
                   },
                   onTap: () {
                     Navigator.push(
@@ -896,34 +956,73 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildNavItem(String label, String iconPath, bool isActive) {
+    final cartService = CartService();
+    final cartCount = cartService.itemCount;
+    final showBadge = label == 'سبد خرید' && cartCount > 0;
+
     return GestureDetector(
       onTap: () {
         if (label == 'جستجو') {
           Navigator.pushNamed(context, '/search');
+        } else if (label == 'سبد خرید') {
+          Navigator.pushNamed(context, '/cart');
+        } else if (label == 'سفارشات') {
+          Navigator.pushNamed(context, '/orders');
         } else if (label == 'خانه') {
           // Already on home
         }
-        // TODO: Navigate to other pages (cart, orders, profile)
+        // TODO: Navigate to profile page
       },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Image.asset(
-            iconPath,
-            width: 24,
-            height: 24,
-            color: isActive ? const Color(0xFF417F56) : Colors.grey,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                iconPath,
+                width: 24,
+                height: 24,
+                color: isActive ? const Color(0xFF417F56) : Colors.grey,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: TextStyle(
+                  fontFamily: 'IRANSansX',
+                  fontSize: 12,
+                  color: isActive ? const Color(0xFF417F56) : Colors.grey,
+                  fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontFamily: 'IRANSansX',
-              fontSize: 12,
-              color: isActive ? const Color(0xFF417F56) : Colors.grey,
-              fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+          if (showBadge)
+            Positioned(
+              right: 0,
+              top: 0,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: Color(0xFF417F56),
+                  shape: BoxShape.circle,
+                ),
+                constraints: const BoxConstraints(
+                  minWidth: 20,
+                  minHeight: 20,
+                ),
+                child: Center(
+                  child: Text(
+                    '$cartCount',
+                    style: const TextStyle(
+                      fontFamily: 'IRANSansX',
+                      fontSize: 10,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
         ],
       ),
     );

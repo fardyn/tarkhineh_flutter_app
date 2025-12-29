@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models/product.dart';
+import 'services/cart_service.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final Product product;
@@ -15,7 +16,9 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   bool _isLiked = false;
-  int _quantity = 0;
+  final CartService _cartService = CartService();
+  
+  int get _quantity => _cartService.getQuantity(widget.product);
 
   String _formatPrice(int price) {
     return price.toString().replaceAllMapped(
@@ -268,9 +271,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
-                            _quantity = 1;
-                          });
+                          _cartService.addToCart(widget.product);
+                          setState(() {});
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF417F56),
@@ -300,11 +302,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              if (_quantity > 0) {
-                                setState(() {
-                                  _quantity--;
-                                });
+                              if (_quantity > 1) {
+                                _cartService.updateQuantity(
+                                  widget.product,
+                                  _quantity - 1,
+                                );
+                              } else {
+                                _cartService.removeFromCart(widget.product);
                               }
+                              setState(() {});
                             },
                             icon: const Icon(
                               Icons.remove,
@@ -328,9 +334,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           IconButton(
                             onPressed: () {
-                              setState(() {
-                                _quantity++;
-                              });
+                              _cartService.updateQuantity(
+                                widget.product,
+                                _quantity + 1,
+                              );
+                              setState(() {});
                             },
                             icon: const Icon(
                               Icons.add,

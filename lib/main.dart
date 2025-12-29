@@ -4,6 +4,8 @@ import 'onboarding_screen.dart';
 import 'login_screen.dart';
 import 'home_screen.dart';
 import 'search_screen.dart';
+import 'cart_screen.dart';
+import 'orders_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,6 +44,8 @@ class MyApp extends StatelessWidget {
         '/login': (_) => const LoginScreen(),
         '/home': (_) => const HomeScreen(),
         '/search': (_) => const SearchScreen(),
+        '/cart': (_) => const CartScreen(),
+        '/orders': (_) => const OrdersScreen(),
       },
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'models/product.dart';
 import 'product_detail_screen.dart';
 import 'utils/finglish_converter.dart';
+import 'services/cart_service.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -281,34 +282,73 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildNavItem(String label, String iconPath, bool isActive) {
+    final cartService = CartService();
+    final cartCount = cartService.itemCount;
+    final showBadge = label == 'سبد خرید' && cartCount > 0;
+
     return GestureDetector(
       onTap: () {
         if (label == 'خانه') {
           Navigator.pushReplacementNamed(context, '/home');
+        } else if (label == 'سبد خرید') {
+          Navigator.pushNamed(context, '/cart');
+        } else if (label == 'سفارشات') {
+          Navigator.pushNamed(context, '/orders');
         } else if (label == 'جستجو') {
           // Already on search
         }
-        // TODO: Navigate to other pages (cart, orders, profile)
+        // TODO: Navigate to profile page
       },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Image.asset(
-            iconPath,
-            width: 24,
-            height: 24,
-            color: isActive ? const Color(0xFF417F56) : Colors.grey,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                iconPath,
+                width: 24,
+                height: 24,
+                color: isActive ? const Color(0xFF417F56) : Colors.grey,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: TextStyle(
+                  fontFamily: 'IRANSansX',
+                  fontSize: 12,
+                  color: isActive ? const Color(0xFF417F56) : Colors.grey,
+                  fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontFamily: 'IRANSansX',
-              fontSize: 12,
-              color: isActive ? const Color(0xFF417F56) : Colors.grey,
-              fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+          if (showBadge)
+            Positioned(
+              right: 0,
+              top: 0,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: const BoxDecoration(
+                  color: Color(0xFF417F56),
+                  shape: BoxShape.circle,
+                ),
+                constraints: const BoxConstraints(
+                  minWidth: 20,
+                  minHeight: 20,
+                ),
+                child: Center(
+                  child: Text(
+                    '$cartCount',
+                    style: const TextStyle(
+                      fontFamily: 'IRANSansX',
+                      fontSize: 10,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
         ],
       ),
     );
