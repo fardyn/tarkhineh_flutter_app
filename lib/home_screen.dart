@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'widgets/food_card.dart';
+import 'models/product.dart';
+import 'product_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,6 +19,28 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _showBranchDialog = false;
   bool _showGpsDialog = false;
   final Set<String> _likedItems = {};
+
+  Product _createProduct({
+    required String title,
+    required String imagePath,
+    required int originalPrice,
+    int? discountPercent,
+    required int finalPrice,
+    required int stars,
+    required String ingredients,
+  }) {
+    return Product(
+      id: title,
+      title: title,
+      imagePath: imagePath,
+      originalPrice: originalPrice,
+      discountPercent: discountPercent,
+      finalPrice: finalPrice,
+      stars: stars,
+      ingredients: ingredients,
+      rating: stars,
+    );
+  }
 
   final List<String> _sliderImages = [
     'assets/images/app-slider-1.png',
@@ -553,7 +577,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     // TODO: Add to cart
                   },
                   onTap: () {
-                    // TODO: Navigate to product detail
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                          product: _createProduct(
+                            title: 'دلمه برگ کلم',
+                            imagePath: 'assets/images/Special-offer-pic-1.png',
+                            originalPrice: 220000,
+                            discountPercent: 8,
+                            finalPrice: 209000,
+                            stars: 5,
+                            ingredients: 'کلم، برنج، لپه، سبزی معطر، پیاز، رب گوجه فرنگی، روغن زیتون',
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
                 FoodCard(
@@ -577,7 +616,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     // TODO: Add to cart
                   },
                   onTap: () {
-                    // TODO: Navigate to product detail
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                          product: _createProduct(
+                            title: 'بادمجان شکم‌پر',
+                            imagePath: 'assets/images/special-offer-pic-2.png',
+                            originalPrice: 150000,
+                            discountPercent: 18,
+                            finalPrice: 136000,
+                            stars: 4,
+                            ingredients: 'بادمجان، گوجه فرنگی، کدو سبز، پیاز، رب گوجه فرنگی، روغن زیتون، پنیر پارمزان',
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
               ],
@@ -636,7 +690,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     // TODO: Add to cart
                   },
                   onTap: () {
-                    // TODO: Navigate to product detail
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                          product: _createProduct(
+                            title: 'پنینی اسفناج',
+                            imagePath: 'assets/images/popular-foods-1.png',
+                            originalPrice: 150000,
+                            finalPrice: 150000,
+                            stars: 3,
+                            ingredients: 'نان پنینی، اسفناج، پنیر موتزارلا، سیر، روغن زیتون',
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
                 FoodCard(
@@ -660,7 +728,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     // TODO: Add to cart
                   },
                   onTap: () {
-                    // TODO: Navigate to product detail
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                          product: _createProduct(
+                            title: 'پیتزا پپرونی',
+                            imagePath: 'assets/images/Popular-foods-2.png',
+                            originalPrice: 175000,
+                            discountPercent: 20,
+                            finalPrice: 150000,
+                            stars: 4,
+                            ingredients: 'خمیر پیتزا، پپرونی، پنیر موتزارلا، سس گوجه فرنگی',
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
               ],
@@ -720,7 +803,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     // TODO: Add to cart
                   },
                   onTap: () {
-                    // TODO: Navigate to product detail
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                          product: _createProduct(
+                            title: 'سوشی',
+                            imagePath: 'assets/images/sushi.png',
+                            originalPrice: 175000,
+                            discountPercent: 20,
+                            finalPrice: 150000,
+                            stars: 4,
+                            ingredients: 'ماهی سالمون، برنج سوشی، جلبک دریایی، خیار، آووکادو',
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
                 FoodCard(
@@ -744,7 +842,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     // TODO: Add to cart
                   },
                   onTap: () {
-                    // TODO: Navigate to product detail
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetailScreen(
+                          product: _createProduct(
+                            title: 'راتاتویی',
+                            imagePath: 'assets/images/ratatouii.png',
+                            originalPrice: 175000,
+                            discountPercent: 20,
+                            finalPrice: 150000,
+                            stars: 4,
+                            ingredients: 'بادمجان، گوجه فرنگی، کدو سبز، پیاز، رب گوجه فرنگی، روغن زیتون، پنیر پارمزان',
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
               ],
@@ -785,7 +898,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildNavItem(String label, String iconPath, bool isActive) {
     return GestureDetector(
       onTap: () {
-        // TODO: Navigate to respective pages
+        if (label == 'جستجو') {
+          Navigator.pushNamed(context, '/search');
+        } else if (label == 'خانه') {
+          // Already on home
+        }
+        // TODO: Navigate to other pages (cart, orders, profile)
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -3,6 +3,7 @@ import 'splash_screen.dart';
 import 'onboarding_screen.dart';
 import 'login_screen.dart';
 import 'home_screen.dart';
+import 'search_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/onboarding': (_) => const OnboardingScreen(),
         '/login': (_) => const LoginScreen(),
         '/home': (_) => const HomeScreen(),
+        '/search': (_) => const SearchScreen(),
       },
     );
   }
